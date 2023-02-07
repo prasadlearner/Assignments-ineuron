@@ -27,8 +27,7 @@ public class JdbcUtil {
 
 	public static Connection getJdbcConnection() throws SQLException, IOException {
 		//
-		FileInputStream fis = new FileInputStream(
-				"D:\\JavaServletProjects\\JDBC_CRUD_APP\\src\\main\\java\\in\\ineuron\\properties\\application.proprties");
+		FileInputStream fis = new FileInputStream("D:\\Git_LocalRepo\\JDBC_CRUD_APP\\src\\main\\java\\in\\ineuron\\properties\\application.proprties");
 		Properties p = new Properties();
 		p.load(fis);
 		String url = p.getProperty("url");
