@@ -10,23 +10,34 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
 public class JdbcUtil {
 	private JdbcUtil() {
 		// can't create object
 	}
 
 	static {
-       // loading and register the Driver
+		// loading and register the Driver
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 	}
 
 	public static Connection getJdbcConnection() throws SQLException, IOException {
-		//
+		String fileLocation = "D:\\Git_LocalRepo\\JDBC_CRUD_APP\\src\\main\\java\\in\\ineuron\\properties\\application.proprties";
+		HikariConfig hikariConfig = new HikariConfig(fileLocation);
+		HikariDataSource dataSourse = new HikariDataSource(hikariConfig);
+		Connection connection = dataSourse.getConnection();
+		return connection;
+	}
+
+	@SuppressWarnings("unused")
+	private static Connection physicalConnection() throws FileNotFoundException, IOException, SQLException {
 		FileInputStream fis = new FileInputStream("D:\\Git_LocalRepo\\JDBC_CRUD_APP\\src\\main\\java\\in\\ineuron\\properties\\application.proprties");
 		Properties p = new Properties();
 		p.load(fis);

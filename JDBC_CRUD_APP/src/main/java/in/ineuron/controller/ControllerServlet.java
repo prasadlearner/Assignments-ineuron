@@ -132,7 +132,7 @@ public class ControllerServlet extends HttpServlet {
 				out.println("</body>");
 			} else {
 				out.println("<body>");
-				out.println("<h1 style='color:orange; text-align:center'>RECORD NOT FOUND FOR THE GIVEN ID " + sid
+				out.println("<h1 style='color:orange; text-align:center'>RECORD NOT FOUND FOR THE GIVEN ID :" + sid
 						+ "</h1>");
 				out.println("/<body>");
 			}
