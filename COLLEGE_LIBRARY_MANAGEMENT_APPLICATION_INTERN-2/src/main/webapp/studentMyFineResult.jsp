@@ -20,9 +20,7 @@
 			<h1 style="color:green; text-align:center">
 			     THIS BOOK NOT ISSUED OR ALREADY BOOK IS SUBMITTED BY:: "${param.sid}"
 			</h1>
-			<h1 style="color:green; text-align:center">
-				 FINE ON BOOK IS :: 0
-			</h1>
+			
 		</c:when>
 		
 		<c:otherwise>

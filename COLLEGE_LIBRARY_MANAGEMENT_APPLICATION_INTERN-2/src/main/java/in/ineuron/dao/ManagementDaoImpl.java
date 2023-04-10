@@ -16,85 +16,81 @@ import in.ineuron.util.JdbcUtil;
 
 public class ManagementDaoImpl implements IManagementDao {
 
-	
-		Connection connection = null;
-		PreparedStatement pstmt = null;
-		ResultSet resultSet = null;
+	Connection connection = null;
+	PreparedStatement pstmt = null;
+	ResultSet resultSet = null;
 
-		@Override
-		public String mangReg(Management management) {
-			String sqlQuery = "";
-			int i = 0;
-			String msg = "";
+	@Override
+	public String mangReg(Management management) {
+		String sqlQuery = "";
+		int i = 0;
+		String msg = "";
 
-			try {
-				connection = JdbcUtil.getJdbcConnection();
-				sqlQuery = "INSERT INTO management(mid, mname, memail, mpwd) VALUES(?,?,?,?)";
+		try {
+			connection = JdbcUtil.getJdbcConnection();
+			sqlQuery = "INSERT INTO management(mid, mname, memail, mpwd) VALUES(?,?,?,?)";
 
-				if (connection != null) {
-					pstmt = connection.prepareStatement(sqlQuery);
-					pstmt.setString(1, management.getMid());
-					pstmt.setString(2, management.getMname());
-					pstmt.setString(3, management.getMemail());
-					pstmt.setString(4, management.getMpwd());
-					if (pstmt != null) {
-						i = pstmt.executeUpdate();
-					}
+			if (connection != null) {
+				pstmt = connection.prepareStatement(sqlQuery);
+				pstmt.setString(1, management.getMid());
+				pstmt.setString(2, management.getMname());
+				pstmt.setString(3, management.getMemail());
+				pstmt.setString(4, management.getMpwd());
+				if (pstmt != null) {
+					i = pstmt.executeUpdate();
 				}
-
-			} catch (SQLException | IOException se) {
-				se.printStackTrace();
-			} catch (Exception e) {
-				e.printStackTrace();
 			}
-			if (i == 1) {
-				msg = "success";
-			} else
-				msg = "failed";
 
-			return msg;
+		} catch (SQLException | IOException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		if (i == 1) {
+			msg = "success";
+		} else
+			msg = "failed";
+
+		return msg;
+	}
 
 	@Override
 	public String mangLogin(String mid, String mpwd) {
-		
+
 		PreparedStatement pstmt = null;
 		Connection connection = null;
 		ResultSet resultSet = null;
-		
-			try {
-				connection = JdbcUtil.getJdbcConnection();
-				if (connection != null) {	
-					pstmt = connection.prepareStatement("SELECT mpwd FROM management WHERE mid = ?");
-				}
-				if (pstmt != null) {
-					pstmt.setString(1, mid);
-					
-					resultSet = pstmt.executeQuery();
-				}
-				if(resultSet.next())
-				{
-					String mpassword = resultSet.getString("mpwd");
-					if(mpassword.equals(mpwd))
-					{
-						return "Success";
-					}
-				}
-			} catch (SQLException e) {
-				
-				e.printStackTrace();
-			} catch (IOException e) {
-				
-				e.printStackTrace();
-			}catch (Exception e) {
-				
-				e.printStackTrace();
+
+		try {
+			connection = JdbcUtil.getJdbcConnection();
+			if (connection != null) {
+				pstmt = connection.prepareStatement("SELECT mpwd FROM management WHERE mid = ?");
 			}
-			
+			if (pstmt != null) {
+				pstmt.setString(1, mid);
+
+				resultSet = pstmt.executeQuery();
+			}
+			if (resultSet.next()) {
+				String mpassword = resultSet.getString("mpwd");
+				if (mpassword.equals(mpwd)) {
+					return "Success";
+				}
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
 		return "Failure";
 	}
 	
-
 
 	@Override
 	public String mangAddBookInLib(Book book) {
@@ -129,60 +125,55 @@ public class ManagementDaoImpl implements IManagementDao {
 
 	@Override
 	public Book mangSearchBookInLib(String attribute, String value) {
-		
-		
+
 		PreparedStatement pstmt = null;
 		Connection connection = null;
 		ResultSet resultSet = null;
 		Book book = null;
-		
+
 		try {
 			connection = JdbcUtil.getJdbcConnection();
 			if (connection != null) {
-				
-				
-				
+
 				pstmt = connection.prepareStatement("SELECT * FROM  book WHERE " + attribute + " LIKE  ? ");
-				
+
 			}
 			if (pstmt != null) {
-				
+
 				pstmt.setString(1, value);
-				
-				
+
 				resultSet = pstmt.executeQuery();
 			}
-			if(resultSet.next())
-			{
-				
+			if (resultSet.next()) {
+
 				book = new Book();
-				
+
 				book.setBid(resultSet.getString("bid"));
 				book.setBtitle(resultSet.getString("btitle"));
 				book.setBauthor(resultSet.getString("bauthor"));
 				book.setBcategory(resultSet.getString("bcategory"));
-				
+
 			}
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
-		
+
 		return book;
 	}
 
 	@Override
 	public String mangUpdateBookInLib(Book book) {
-	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+		// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 		return null;
 	}
 
 	@Override
 	public String mangRemoveBookInLib(String bid) {
-		
+
 		String msg = "";
 		int count = 0;
 		try {
@@ -196,10 +187,9 @@ public class ManagementDaoImpl implements IManagementDao {
 					count = pstmt.executeUpdate();
 					if (count == 1) {
 						msg = "success";
-					}else
-					{
+					} else {
 						msg = "notfound";
-						
+
 					}
 				}
 			}
@@ -214,10 +204,9 @@ public class ManagementDaoImpl implements IManagementDao {
 		return msg;
 	}
 
-
 	@Override
 	public String mangstdtBookSubmiton(String sid, String bid) {
-		
+
 		int count;
 
 		try {
@@ -234,7 +223,7 @@ public class ManagementDaoImpl implements IManagementDao {
 					pstmt.setString(4, bid);
 					count = pstmt.executeUpdate();
 					if (count == 1) {
-						return  "success";
+						return "success";
 					}
 				}
 			}
@@ -248,7 +237,7 @@ public class ManagementDaoImpl implements IManagementDao {
 
 	@Override
 	public String mangIssueBookStud(String sid, String bid) {
-		
+
 		String msg = "";
 		int i = 0;
 
@@ -282,44 +271,43 @@ public class ManagementDaoImpl implements IManagementDao {
 
 	@Override
 	public List<Book> availableBooksInLib() {
-		
-			List<Book> books = new ArrayList<Book>();
-			try {
-				connection = JdbcUtil.getJdbcConnection();
-				String sqlQuery = "SELECT bid, btitle, bauthor, bcategory FROM book";
-				if (connection != null) {
-					pstmt = connection.prepareStatement(sqlQuery);
 
-					if (pstmt != null) {
-						resultSet = pstmt.executeQuery();
-						while(resultSet.next()) {
-							Book book = new Book();
-							System.out.println(resultSet);
-							book.setBid(resultSet.getString("bid"));
-							book.setBauthor(resultSet.getString("bauthor"));
-							book.setBtitle(resultSet.getString("btitle"));
-							book.setBcategory(resultSet.getString("bcategory"));
-							books.add(book);
-							System.out.println(book.toString());
-						}
+		List<Book> books = new ArrayList<Book>();
+		try {
+			connection = JdbcUtil.getJdbcConnection();
+			String sqlQuery = "SELECT bid, btitle, bauthor, bcategory FROM book";
+			if (connection != null) {
+				pstmt = connection.prepareStatement(sqlQuery);
+
+				if (pstmt != null) {
+					resultSet = pstmt.executeQuery();
+					while (resultSet.next()) {
+						Book book = new Book();
+						System.out.println(resultSet);
+						book.setBid(resultSet.getString("bid"));
+						book.setBauthor(resultSet.getString("bauthor"));
+						book.setBtitle(resultSet.getString("btitle"));
+						book.setBcategory(resultSet.getString("bcategory"));
+						books.add(book);
+						System.out.println(book.toString());
 					}
 				}
-
-			} catch (SQLException | IOException e) {
-				e.printStackTrace();
-			} catch (Exception e) {
-				e.printStackTrace();
 			}
-			return books;
-		}
 
-	
+		} catch (SQLException | IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return books;
+	}
+
 	@Override
 	public Integer studentBorrowedbooksCount(String sid) {
 		Integer count = 0;
 		try {
 			connection = JdbcUtil.getJdbcConnection();
-			//String sqlQuery = "SELECT COUNT(*)  FROM studentbooktracker WHERE sid = ?";
+			// String sqlQuery = "SELECT COUNT(*) FROM studentbooktracker WHERE sid = ?";
 			String sqlQuery = "SELECT sid FROM studentbooktracker WHERE sid = ?";
 			if (connection != null) {
 				pstmt = connection.prepareStatement(sqlQuery);
@@ -329,14 +317,13 @@ public class ManagementDaoImpl implements IManagementDao {
 					pstmt.setString(1, sid);
 					resultSet = pstmt.executeQuery();
 					while (resultSet.next()) {
-						
-						String sid_s =  resultSet.getString("sid");
-					
-						if(sid_s != null)
-						{
+
+						String sid_s = resultSet.getString("sid");
+
+						if (sid_s != null) {
 							count++;
 						}
-					}	
+					}
 				}
 			}
 		} catch (SQLException | IOException e) {
@@ -344,7 +331,7 @@ public class ManagementDaoImpl implements IManagementDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	
+
 		return count;
 	}
 

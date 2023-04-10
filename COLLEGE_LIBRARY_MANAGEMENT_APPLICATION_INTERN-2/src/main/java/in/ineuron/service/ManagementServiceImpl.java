@@ -12,52 +12,51 @@ public class ManagementServiceImpl implements IManagementService {
 
 	@Override
 	public String mangReg(Management mang) {
-		
+
 		IManagementDao managementDao = ManagementDaoFactory.getManagementDao();
 		return managementDao.mangReg(mang);
 	}
 
 	@Override
 	public String mangLogin(String mid, String mpwd) {
-		
+
 		IManagementDao managementDao = ManagementDaoFactory.getManagementDao();
 		return managementDao.mangLogin(mid, mpwd);
 	}
 
 	@Override
 	public String mangIssueBookStud(String sid, String bid) {
-		
+
 		IManagementDao managementDao = ManagementDaoFactory.getManagementDao();
-		
+
 		Integer stdtBookcount = managementDao.studentBorrowedbooksCount(sid);
-		
-		if(stdtBookcount < 3)
-		{
+
+		if (stdtBookcount < 3) {
 			String status = managementDao.mangIssueBookStud(sid, bid);
-			
-			 return status;		
+
+			return status;
 		}
-		
+
 		return "limitOver";
 	}
 
 	@Override
 	public String mangAddBookInLib(Book book) {
-		
+
 		IManagementDao managementDao = ManagementDaoFactory.getManagementDao();
 		return managementDao.mangAddBookInLib(book);
 	}
-	
+
 	@Override
 	public Book mangSearchBookInLib(String attr, String val) {
-		
+
 		IManagementDao managementDao = ManagementDaoFactory.getManagementDao();
 		return managementDao.mangSearchBookInLib(attr, val);
 	}
 
 	@Override
 	public String mangUpdateBookInLib(Book book) {
-		//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+		// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 		IManagementDao managementDao = ManagementDaoFactory.getManagementDao();
 		return null;
 	}
@@ -69,38 +68,31 @@ public class ManagementServiceImpl implements IManagementService {
 		return managementDao.mangRemoveBookInLib(bid);
 	}
 
-
 	@Override
 	public String mangstdtBookSubmiton(String sid, String bid) {
-	
+
 		IManagementDao managementDao = ManagementDaoFactory.getManagementDao();
-	
+
 		return managementDao.mangstdtBookSubmiton(sid, bid);
 	}
 
 	@Override
 	public List<Book> availableBooksInLib() {
-		
-		IManagementDao managementDao = ManagementDaoFactory.getManagementDao();	
+
+		IManagementDao managementDao = ManagementDaoFactory.getManagementDao();
 		return managementDao.availableBooksInLib();
 	}
-	
 
 	@Override
 	public Integer searchFineOnBook(String sid, String bid) {
-	
-		//<-------------------------------------------------------------------------------------------->
-		
-		  Integer fine = StudentServiceFactory.getStudentService().studentFines(sid, bid);
-		  
-		  //<------------------------------------------------------------------------------------------->
-		  
-		  
-		return fine ;
+
+		// <-------------------------------------------------------------------------------------------->
+
+		Integer fine = StudentServiceFactory.getStudentService().studentFines(sid, bid);
+
+		// <------------------------------------------------------------------------------------------->
+
+		return fine;
 	}
-
-
-
-	
 
 }

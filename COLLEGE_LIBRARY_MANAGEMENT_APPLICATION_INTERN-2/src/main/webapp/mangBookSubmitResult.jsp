@@ -16,16 +16,8 @@
 				STUDENT BOOK SUBMITTED SUCCESSFULLY
 			</h1>
 		</c:when>
-		<c:when test="${status eq 'fineAmtPending' }">
-			<h1 style="color:green; text-align:center">
-				 FINE AMOUNT IS PENDING COLLECT BEFORE BOOK SUBMITION
-			</h1>
-		</c:when>
-		<c:when test="${status eq 'notIssued' }">
-			<h1 style="color:green; text-align:center">
-				 THIS BOOK IS NOT ISSUED FOR THIS STUDENT :: ${param.sid}
-			</h1>
-		</c:when>
+
+	
 		<c:otherwise>
 			<h1 style="color:red; text-align:center">
 				STUDENT SUBMITION FAILED

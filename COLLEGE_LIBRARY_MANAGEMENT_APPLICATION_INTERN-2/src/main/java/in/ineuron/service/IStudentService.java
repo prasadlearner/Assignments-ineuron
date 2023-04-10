@@ -17,8 +17,8 @@ public interface IStudentService {
 	public Integer studentFines(String sid, String bid);
 
 	public StudentBookTracker getBorrowDateAndSubmDate(String sid, String bid);
-	
-	public String addFineIntoDB(Integer fine,String sid, String bid); 
-	
-	public Book bookSearchInLib(String attribute,String value);
+
+	public String addFineIntoDB(Integer fine, String sid, String bid);
+
+	public Book bookSearchInLib(String attribute, String value);
 }

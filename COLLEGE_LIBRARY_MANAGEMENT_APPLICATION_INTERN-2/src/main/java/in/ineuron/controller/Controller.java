@@ -53,9 +53,9 @@ public class Controller extends HttpServlet {
 		String status = studentService.studentLogin(sid, password);
 		if(status.equals("Success"))
 		{
-			request.setAttribute("status", status);
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/studentHomePage.html");
-			requestDispatcher.forward(request, response);
+		request.setAttribute("status", status);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/studentHomePage.html");
+		requestDispatcher.forward(request, response);
 		}else
 		{
 		request.setAttribute("status", status);
@@ -137,14 +137,13 @@ public class Controller extends HttpServlet {
 		
 		if(status.equals("Success"))
 		{
-			System.out.println(status);
-			request.setAttribute("status", status);
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/mangHomePage.html");
-			requestDispatcher.forward(request, response);
+		System.out.println(status);
+		request.setAttribute("status", status);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/mangHomePage.html");
+		requestDispatcher.forward(request, response);
 		}else
 		{
-			System.out.println(status);
-			
+		System.out.println(status);	
 		request.setAttribute("status", status);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/mangLoginFailure.jsp");
 		requestDispatcher.forward(request, response);
@@ -247,6 +246,8 @@ public class Controller extends HttpServlet {
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/mangSearchFineResult.jsp");
 		requestDispatcher.forward(request, response);
 	}
+	
+	// <----------*****-----------MANAGEMENT FUNCTIONS END-----------******----------->
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{ 
@@ -255,7 +256,10 @@ public class Controller extends HttpServlet {
 		
 		String uri = request.getRequestURI();
 	
-	
+		/*
+		 * Students can search books based on AUTHOR, CATEGORY, BOOKTITLE from library
+		 * and see their fines , borrowed books
+		 */
 		
 		if(uri.endsWith("reg"))
 		{
@@ -278,8 +282,12 @@ public class Controller extends HttpServlet {
 			searchAvailableBooksInLib(request,  response);
 		}
 		
-		
-		
+	
+		/*
+		 * College Management can Add,Remove and Delete books from library
+		 * 
+		 * Management can also issue Three books per student and collect from them
+		 */
 		
 		if(uri.endsWith("mangReg"))
 		{
@@ -331,7 +339,7 @@ public class Controller extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		doProcess(request, response);
+	doProcess(request, response);
 	}
 
 }

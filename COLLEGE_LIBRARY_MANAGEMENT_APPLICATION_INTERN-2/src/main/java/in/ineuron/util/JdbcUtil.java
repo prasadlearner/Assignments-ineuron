@@ -26,7 +26,7 @@ public class JdbcUtil {
 
 	public static Connection getJdbcConnection() throws SQLException, IOException {
 		
-		String fileLocation ="D:\\JavaServletProjects\\ZZZ_APP\\src\\main\\java\\in\\ineuron\\properties\\application.properties" ;
+		String fileLocation ="D:\\Git_LocalRepo\\COLLEGE_LIBRARY_MANAGEMENT_APPLICATION_INTERN-2\\src\\main\\java\\in\\ineuron\\properties\\application.properties" ;
 		HikariConfig hikariConfig = new HikariConfig(fileLocation);
 		HikariDataSource dataSourse = new HikariDataSource(hikariConfig);
 		Connection connection = dataSourse.getConnection();
