@@ -12,7 +12,6 @@
 	<a href="managSearchBookLib.jsp" target="body">SEARCH BOOKS</a><br/><br/>
 	<a href="managAddBookInLib.jsp" target="body">ADD BOOKS</a><br/><br/>
 	<a href="mangDeleteBook.jsp" target="body">REMOVE BOOKS</a><br/><br/>
-	<a href="mangEditBook.jsp" target="body">UPDATE BOOKS</a><br/><br/>
 	<a href="mangIssueBook.jsp" target="body">ISSUE BOOK</a><br/><br/>	
 	<a href="mangSubmitBook.jsp" target="body">SUBMIT BOOK</a><br/><br/>	
 	<a href="mangSearchFine.jsp" target="body">FINE ON BOOK</a><br/><br/>			

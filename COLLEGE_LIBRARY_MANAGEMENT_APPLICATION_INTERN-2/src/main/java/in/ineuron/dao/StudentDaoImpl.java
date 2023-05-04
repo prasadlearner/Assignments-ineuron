@@ -85,7 +85,7 @@ public class StudentDaoImpl implements IStudentDao {
 
 	@Override
 	public List<Book> studentBooks(String sid) {
-		String sqlQuery1 = "SELECT bid FROM studentbooktracker WHERE sid = ? AND status = ?";
+		String sqlQuery1 = "SELECT bid FROM studentbooktracker WHERE sid = ?";
 		String sqlQuery2 = "SELECT * FROM book WHERE bid = ?";
 
 		PreparedStatement pstmt1 = null;
@@ -104,7 +104,6 @@ public class StudentDaoImpl implements IStudentDao {
 
 				if (pstmt1 != null) {
 					pstmt1.setString(1, sid);
-					pstmt1.setString(2, "issued");
 
 					resultSet = pstmt1.executeQuery();
 					while (resultSet.next()) {

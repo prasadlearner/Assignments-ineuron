@@ -4,6 +4,7 @@ import java.util.List;
 
 import in.ineuron.dto.Book;
 import in.ineuron.dto.Management;
+import in.ineuron.dto.StudentBookTracker;
 
 public interface IManagementService {
 
