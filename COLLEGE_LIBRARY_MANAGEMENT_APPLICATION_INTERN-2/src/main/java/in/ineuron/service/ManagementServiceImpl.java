@@ -56,9 +56,9 @@ public class ManagementServiceImpl implements IManagementService {
 
 	@Override
 	public String mangUpdateBookInLib(Book book) {
-		
+		// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 		IManagementDao managementDao = ManagementDaoFactory.getManagementDao();
-		return managementDao.mangUpdateBookInLib(book);
+		return null;
 	}
 
 	@Override

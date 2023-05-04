@@ -13,7 +13,7 @@
 <body bgcolor='lightblue'>
 	<center>
 		<c:choose>
-			<c:when test="${student ne null || !empty student }">
+			<c:when test="${studenr ne null || !empty student }">
 				<form method="post" action="./controller/update">
 					<table>
 						<tr>
