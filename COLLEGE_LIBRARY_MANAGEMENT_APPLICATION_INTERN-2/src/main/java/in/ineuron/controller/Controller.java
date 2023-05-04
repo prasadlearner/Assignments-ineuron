@@ -246,6 +246,38 @@ public class Controller extends HttpServlet {
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/mangSearchFineResult.jsp");
 		requestDispatcher.forward(request, response);
 	}
+	public void mangEditBookInLib(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		IManagementService managementService = ManagementServiceFactory.getManagementService();
+		String value = request.getParameter("value");
+		String attribute = request.getParameter("attribute");
+		Book book = managementService.mangSearchBookInLib(attribute, value);
+		System.out.println(book);
+		
+		request.setAttribute("book", book);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/mangEditBookResult.jsp");
+		requestDispatcher.forward(request, response);	
+	}
+	
+	public void mangUpdateBookInLib(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		IManagementService managementService = ManagementServiceFactory.getManagementService();
+		
+		Book book = new Book();
+		
+		book.setBid(request.getParameter("bid"));
+		book.setBtitle(request.getParameter("btitle"));
+		book.setBauthor(request.getParameter("bauthor"));
+	    book.setBcategory(	request.getParameter("bcategory"));
+		
+		
+		String status = managementService.mangUpdateBookInLib(book);
+		
+		request.setAttribute("status", status);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/mangUpdateResult.jsp");
+		requestDispatcher.forward(request, response);
+		
+	}
 	
 	// <----------*****-----------MANAGEMENT FUNCTIONS END-----------******----------->
 
@@ -310,6 +342,14 @@ public class Controller extends HttpServlet {
 		if(uri.endsWith("mangRemovebook"))
 		{
 			mangRemoveBookInLib(request,  response);
+		}
+		if(uri.endsWith("mangEditbook"))
+		{
+			mangEditBookInLib(request,  response);
+		}
+		if(uri.endsWith("mangUpdatebook"))
+		{
+			mangUpdateBookInLib(request,  response);
 		}
 		if(uri.endsWith("availableBooks"))
 		{

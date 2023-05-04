@@ -14,7 +14,7 @@
 	<c:choose>
 	<c:when test="${!empty books }">
 	
-	<h1 style="color: rgb(128, 0, 0); text-align:center">STUDENT AVAILABLE BOOKS </h1>
+	<h1 style="color: rgb(128, 0, 0); text-align:center"> ISSUED BOOKS TO STUDENT</h1>
 	<table border='1' align="center">
 		<tr>
 			<th>BOOK ID</th>

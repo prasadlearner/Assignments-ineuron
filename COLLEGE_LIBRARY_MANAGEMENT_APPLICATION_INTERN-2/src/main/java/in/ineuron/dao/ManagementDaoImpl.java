@@ -167,8 +167,38 @@ public class ManagementDaoImpl implements IManagementDao {
 
 	@Override
 	public String mangUpdateBookInLib(Book book) {
-		// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-		return null;
+		String msg = "";
+		int count = 0;
+		try {
+			connection = JdbcUtil.getJdbcConnection();
+			String sqlQuery = "UPDATE book SET btitle=?,bauthor=?,bcategory=? WHERE bid = ?";
+			if (connection != null) {
+				pstmt = connection.prepareStatement(sqlQuery);
+				if (pstmt != null) {
+					
+					pstmt.setString(1, book.getBtitle());
+					pstmt.setString(2, book.getBauthor());
+					pstmt.setString(3, book.getBcategory());
+					pstmt.setString(4, book.getBid());
+
+					count = pstmt.executeUpdate();
+					if (count == 1) {
+						msg = "success";
+					} else {
+						msg = "notfound";
+
+					}
+				}
+			}
+
+		} catch (SQLException | IOException e) {
+			e.printStackTrace();
+			msg = "failed";
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "failed";
+		}
+		return msg;
 	}
 
 	@Override
@@ -213,14 +243,15 @@ public class ManagementDaoImpl implements IManagementDao {
 			connection = JdbcUtil.getJdbcConnection();
 			java.sql.Date date = new java.sql.Date(new java.util.Date().getTime());
 
-			String sqlQuery = "UPDATE studentbooktracker SET submitdate=?, fine=? WHERE sid=? AND bid=?";
+			String sqlQuery = "UPDATE studentbooktracker SET submitdate=?, fine=?, status=? WHERE sid=? AND bid=?";
 			if (connection != null) {
 				pstmt = connection.prepareStatement(sqlQuery);
 				if (pstmt != null) {
 					pstmt.setDate(1, date);
 					pstmt.setInt(2, 0);
-					pstmt.setString(3, sid);
-					pstmt.setString(4, bid);
+					pstmt.setString(3, "returned");
+					pstmt.setString(4, sid);
+					pstmt.setString(5, bid);
 					count = pstmt.executeUpdate();
 					if (count == 1) {
 						return "success";
@@ -243,7 +274,7 @@ public class ManagementDaoImpl implements IManagementDao {
 
 		try {
 			connection = JdbcUtil.getJdbcConnection();
-			String sqlQuery = "INSERT INTO studentbooktracker(sid, bid, borrowdate, fine) VALUES(?,?,?,?)";
+			String sqlQuery = "INSERT INTO studentbooktracker(sid, bid, borrowdate, fine, status) VALUES(?,?,?,?,?)";
 			java.sql.Date date = new java.sql.Date(new java.util.Date().getTime());
 
 			if (connection != null) {
@@ -253,6 +284,7 @@ public class ManagementDaoImpl implements IManagementDao {
 					pstmt.setString(2, bid);
 					pstmt.setDate(3, date);
 					pstmt.setInt(4, 0);
+					pstmt.setString(5, "issued");
 
 					i = pstmt.executeUpdate();
 					if (i == 1) {
@@ -308,7 +340,7 @@ public class ManagementDaoImpl implements IManagementDao {
 		try {
 			connection = JdbcUtil.getJdbcConnection();
 			// String sqlQuery = "SELECT COUNT(*) FROM studentbooktracker WHERE sid = ?";
-			String sqlQuery = "SELECT sid FROM studentbooktracker WHERE sid = ?";
+			String sqlQuery = "SELECT status FROM studentbooktracker where status LIKE 'i%' AND sid =?";
 			if (connection != null) {
 				pstmt = connection.prepareStatement(sqlQuery);
 
@@ -318,9 +350,9 @@ public class ManagementDaoImpl implements IManagementDao {
 					resultSet = pstmt.executeQuery();
 					while (resultSet.next()) {
 
-						String sid_s = resultSet.getString("sid");
+						String status = resultSet.getString("status");
 
-						if (sid_s != null) {
+						if (status != null) {
 							count++;
 						}
 					}
