@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move element &apos;Question01.java&apos; to &apos;DSA_Assign1_Que1/src/in.ineuron.questions&apos;&#x0D;&#x0A;- Original project: &apos;DSA_Assign1_Que1&apos;&#x0D;&#x0A;- Destination element: &apos;DSA_Assign1_Que1/src/in.ineuron.questions&apos;&#x0D;&#x0A;- Original element: &apos;Question01.java&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move compilation unit" destination="/src&lt;in.ineuron.questions" element1="/src&lt;{Question01.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1689705355410" units="1" version="1.0"/>
+</session>
